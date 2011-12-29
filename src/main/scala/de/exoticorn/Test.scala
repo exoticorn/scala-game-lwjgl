@@ -33,7 +33,7 @@ object Test extends App {
   Display.setDisplayMode(new DisplayMode(640, 480))
   Display.create()
 
-  val vertexShader = compileShader(GL_VERTEX_SHADER, "attribute vec2 position; void main() { gl_Position = vec4(position, 0, 1); }")
+  val vertexShader = compileShader(GL_VERTEX_SHADER, "uniform float xScale; attribute vec2 position; void main() { gl_Position = vec4(position.x * xScale, position.y, 0, 1); }")
   val fragmentShader = compileShader(GL_FRAGMENT_SHADER, "void main() { gl_FragColor = vec4(1, 0, 0, 1); }")
   val program = linkProgram(vertexShader, fragmentShader)
 
@@ -46,11 +46,12 @@ object Test extends App {
   vertexBuffer.rewind()
 
   val positionAttribute = glGetAttribLocation(program, "position")
+  val xScaleUniform = glGetUniformLocation(program, "xScale")
 
   var t = 0.0
   
   while(!Display.isCloseRequested()) {
-    glClearColor(1, 0, 1, 1)
+    glClearColor(0, 0.5f, 0, 1)
     glClear(GL_COLOR_BUFFER_BIT)
 
     byteBuffer.putFloat(16, math.sin(t).asInstanceOf[Float])
@@ -58,6 +59,7 @@ object Test extends App {
     t += math.Pi / 60
 
     glUseProgram(program)
+    glUniform1f(xScaleUniform, math.cos(t))
     glVertexAttribPointer(positionAttribute, 2, false, 8, vertexBuffer)
     glEnableVertexAttribArray(positionAttribute)
     glDrawArrays(GL_TRIANGLES, 0, 3)

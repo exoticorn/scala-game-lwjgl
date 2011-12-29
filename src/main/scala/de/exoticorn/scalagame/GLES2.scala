@@ -33,4 +33,17 @@ final object GLES2 {
   def glVertexAttribPointer(attr: Int, size: Int, normalize: Boolean, stride: Int, buffer: java.nio.FloatBuffer) = glVertexAttribPointerARB(attr, size, normalize, stride, buffer)
   def glEnableVertexAttribArray(attr: Int) = glEnableVertexAttribArrayARB(attr)
   def glDisableVertexAttribArray(attr: Int) = glDisableVertexAttribArrayARB(attr)
+
+  def glGetUniformLocation(program: Int, name: String) = glGetUniformLocationARB(program, name)
+  def glUniform1f(location: Int, v0: Float) = glUniform1fARB(location, v0)
+  def glUniform1f(location: Int, v0: Double) = glUniform1fARB(location, v0.asInstanceOf[Float])
+  def glUniform2f(location: Int, v0: Float, v1: Float) = glUniform2fARB(location, v0, v1)
+  def glUniform2f(location: Int, v0: Double, v1: Double) = glUniform2fARB(location, v0.asInstanceOf[Float], v1.asInstanceOf[Float])
+  def glUniform3f(location: Int, v0: Float, v1: Float, v2: Float) = glUniform3fARB(location, v0, v1, v2)
+  def glUniform3f(location: Int, v0: Double, v1: Double, v2: Double) = glUniform3fARB(location, v0.asInstanceOf[Float], v1.asInstanceOf[Float], v2.asInstanceOf[Float])
+  def glUniform4f(location: Int, v0: Float, v1: Float, v2: Float, v3: Float) = glUniform4fARB(location, v0, v1, v2, v3)
+  def glUniform4f(location: Int, v0: Double, v1: Double, v2: Double, v3: Double) = glUniform4fARB(location, v0.asInstanceOf[Float], v1.asInstanceOf[Float], v2.asInstanceOf[Float], v3.asInstanceOf[Float])
+  def glUniformMatrix2(location: Int, transpose: Boolean, matrix: java.nio.FloatBuffer) = glUniformMatrix2ARB(location, false, matrix)
+  def glUniformMatrix3(location: Int, transpose: Boolean, matrix: java.nio.FloatBuffer) = glUniformMatrix3ARB(location, false, matrix)
+  def glUniformMatrix4(location: Int, transpose: Boolean, matrix: java.nio.FloatBuffer) = glUniformMatrix4ARB(location, false, matrix)
 }
